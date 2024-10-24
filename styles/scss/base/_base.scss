@@ -1,3 +1,9 @@
-body{
-    width: 100;
+body {
+    width: 100%;
+}
+* {
+    box-sizing: border-box;
+    font-family: $primaryFont;
+    font-size: 10px;
+    margin: 0 auto;
 }

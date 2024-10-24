@@ -1,8 +1,13 @@
 //* Media query */
 
+@mixin media-laptop {
+    @media ( (max-width:$laptopWidthBody) and (min-width: $tabletWidthBody)) {@content; }
+}
+
+
 @mixin media-tablet {
-    @media ( max-width:$tabletWidthBody) {@content; }
+    @media ( (max-width:$tabletWidthBody) and (min-width: $mobileWidthBody)) {@content; }
 }
 @mixin media-mobile {
-    @media ( (max-width: 670px) and (min-width: 380px)) {@content; }
+    @media ( (max-width: $mobileWidth) and (min-width: 364px)) {@content; }
 }

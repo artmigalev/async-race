@@ -1,23 +1,33 @@
 //** --------fonts-------//
-$primaryFont : 'Roboto', sans-serif;
-$sectionTitle: 'Roboto', sans-serif;
-$subtitleSection: 'Roboto', sans-serif;
-$name: 'Roboto', sans-serif;
+$primaryFont: "Montserrat", sans-serif;
+$SecondaryFont: "Allura", sans-serif;
 $defaultSize-font: 16px;
 $sizeName-font: 38px;
 $ttlSection: 24px;
 $sbttlSection: 18px;
 
-//*------sizes------//
-$szWrapper: 1060px;
-$szBody: 1280px;
-$szAvatar: 150px;
+//** --------colors-------//
+$primary: #ff4646;
+$dark: #181c29;
+$static-white: #fff;
+$content-background: #ecf3f8;
+$tag-purple: #4361ff;
+$tag-pink: #ff43f7;
+$tag-green: #06a44f;
+$primary-10: rgba(255, 70, 70, 0.1);
+$static-white-20: rgba(255, 255, 255, 0.2);
+$static-white-40: rgba(255, 255, 255, 0.4);
+
+
 
 //! media-query width;
 
-//*table//
-$tabletWidthBody: 768px;
-$tabletWidthWrapper: 688px;
-//*mobile//
-$mobileWidthBody: 380px;
-$mobileWidthWrapper: 348px;
+
+$laptopWidth: 1440px;
+$laptopWidthWrapper: 1276px;
+
+$tabletWidth: 768px;
+$tabletWidthWrapper:752px;
+
+$mobileWidth: 380px;
+$mobileWidthWrapper: 364px;
