@@ -1,24 +1,95 @@
 //* Media query */
 
 @mixin media-laptop {
-    @media ( (max-width:$laptopWidth) and (min-width: $tabletWidth)) {@content; }
+    @media ((max-width: $laptopWidth) and (min-width: $tabletWidth)) {
+        @content;
+    }
 }
-
 
 @mixin media-tablet {
-    @media ( (max-width:$tabletWidth) and (min-width: $mobileWidth)) {@content; }
+    @media ((max-width: $tabletWidth) and (min-width: $mobileWidth)) {
+        @content;
+    }
 }
 @mixin media-mobile {
-    @media ( (max-width: $mobileWidth) and (min-width: 364px)) {@content; }
+    @media ((max-width: $mobileWidth) and (min-width: 364px)) {
+        @content;
+    }
 }
-
 
 @function toRem($n) {
-  @return calc($n/10) + rem;
+    @return calc($n/10) + rem;
 }
 
-@mixin flex-row{
+@mixin flex-row {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+@mixin header1 {
+    font-family: $primaryFont;
+    font-size: 3.2rem;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 18%;
+    text-transform: uppercase;
+}
+@mixin header2 {
+    font-family: $primaryFont;
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 16%;
+    text-transform: uppercase;
+}
+@mixin header3 {
+    font-family: $primaryFont;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 8%;
+    text-transform: uppercase;
+}
+@mixin header4 {
+    font-family: $primaryFont;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: 5%;
+    text-transform: uppercase;
+}
+@mixin header3 {
+    font-family: $primaryFont;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 148%;
+}
+@mixin actionLarge {
+    font-family: $primaryFont;
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 16%;
+    text-transform: uppercase;
+}
+@mixin actionSmall {
+    font-family: $primaryFont;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: 5%;
+    text-transform: uppercase;
+}
+@mixin caption {
+    font-family: Allura;
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 5%;
+}
+@mixin sliderText {
+    font-family: $primaryFont;
+    font-size: 8rem;
+    font-weight: 600;
+    text-transform: uppercase;
 }
