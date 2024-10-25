@@ -1,9 +1,20 @@
 body {
     width: 100%;
+    margin: 0 auto;
 }
 * {
     box-sizing: border-box;
     font-family: $primaryFont;
     font-size: 10px;
-    margin: 0 auto;
+}
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style-type: none;
 }

@@ -1,13 +1,24 @@
 //* Media query */
 
 @mixin media-laptop {
-    @media ( (max-width:$laptopWidthBody) and (min-width: $tabletWidthBody)) {@content; }
+    @media ( (max-width:$laptopWidth) and (min-width: $tabletWidth)) {@content; }
 }
 
 
 @mixin media-tablet {
-    @media ( (max-width:$tabletWidthBody) and (min-width: $mobileWidthBody)) {@content; }
+    @media ( (max-width:$tabletWidth) and (min-width: $mobileWidth)) {@content; }
 }
 @mixin media-mobile {
     @media ( (max-width: $mobileWidth) and (min-width: 364px)) {@content; }
+}
+
+
+@function toRem($n) {
+  @return calc($n/10) + rem;
+}
+
+@mixin flex-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
