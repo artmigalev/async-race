@@ -1,11 +1,26 @@
 body {
     width: 100%;
     margin: 0 auto;
+    font-size: 10px;
+}
+.wrapper{
+    margin: 0 auto;
+    @include media-laptop {
+        max-width: toRem($laptopWidthWrapper);
+    }
+    @include media-tablet {
+        max-width: toRem($tabletWidthWrapper);
+    }
+    @include media-mobile {
+        max-width: toRem($mobileWidthWrapper);
+    }
+}
+section{
+    width: 100%;
 }
 * {
     box-sizing: border-box;
     font-family: $primaryFont;
-    font-size: 10px;
 }
 ul{
     list-style-type: none;
