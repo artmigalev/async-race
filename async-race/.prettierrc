@@ -3,16 +3,14 @@
   "singleQuote": false,
   "trailingComma": "all",
   "printWidth": 80,
-  "tabWidth": 2,
+  "tabWidth": 4,
   "useTabs": false,
   "bracketSpacing": true,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "preserve_newlines": false,
-  "newline_between_rules": false,
   "overrides": [
     {
-      "files": ["*.json"],
+      "files": "*.json",
       "options": {
         "singleQuote": true,
         "trailingComma": "none"

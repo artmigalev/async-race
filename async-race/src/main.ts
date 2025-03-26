@@ -1,1 +1,4 @@
-import './styles/main.scss'
+import "./styles/main.scss";
+import App from "@/app/app";
+
+new App();

@@ -73,7 +73,11 @@ export class Component {
   remove() {
     this.removeChildren();
   }
-  addListener(event: string, listener: (event?:Event) => void, options = false) {
+  addListener(
+    event: string,
+    listener: (event?: Event) => void,
+    options = false,
+  ) {
     if (this.node === null) {
       throw new Error("Node is null");
     } else {

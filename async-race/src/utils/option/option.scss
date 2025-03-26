@@ -1,0 +1,32 @@
+.option{
+  width: 100%;
+  padding: 2rem 0;
+  .road{
+    width: 100%;
+    border-bottom: 5px dashed black;
+
+    position: relative;
+    .car-icon{
+      width: 100px;
+      height: 100px;
+      position: relative;
+      top: 20px;
+      bottom: 0;
+      svg{
+        width: inherit;
+        height: inherit;
+        top: 0;
+      bottom: 0;
+      }
+
+    }
+    .flag-icon{
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      right: 10%;
+      top: 0;
+    }
+  }
+
+}
