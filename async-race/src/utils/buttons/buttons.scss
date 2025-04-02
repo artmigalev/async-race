@@ -1,0 +1,11 @@
+.button {
+    width: max-content;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.8rem;
+    border-radius: 1rem;
+}
+.button:disabled {
+    background-color: #808080;
+    cursor: not-allowed;
+}

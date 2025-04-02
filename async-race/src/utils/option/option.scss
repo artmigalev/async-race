@@ -1,32 +1,45 @@
-.option{
-  width: 100%;
-  padding: 2rem 0;
-  .road{
+.option {
     width: 100%;
-    border-bottom: 5px dashed black;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .road {
+        width: 100%;
+        border-bottom: 5px dashed black;
 
-    position: relative;
-    .car-icon{
-      width: 100px;
-      height: 100px;
-      position: relative;
-      top: 20px;
-      bottom: 0;
-      svg{
-        width: inherit;
-        height: inherit;
-        top: 0;
-      bottom: 0;
-      }
-
+        position: relative;
+        .car-icon {
+            width: 10%;
+            height: 8%;
+            position: relative;
+            top: 20px;
+            bottom: 0;
+            svg {
+                width: 60%;
+                height: 60%;
+                position: relative;
+                top: 0;
+                bottom: 0;
+            }
+        }
+        .flag-icon {
+            width: 10%;
+            height: 70%;
+            position: absolute;
+            right: 10%;
+            bottom: 0;
+        }
     }
-    .flag-icon{
-      width: 100px;
-      height: 100px;
-      position: absolute;
-      right: 10%;
-      top: 0;
-    }
-  }
+    .btns-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
 
+        gap: 1rem;
+        .car-name{
+            font-size: 3rem;
+            
+        }
+    }
 }
