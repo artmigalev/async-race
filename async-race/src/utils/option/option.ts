@@ -4,57 +4,61 @@ import flagSvg from "@assets/svg/flag.svg";
 import Button from "../buttons/buttons";
 import { moveCar } from "@/functions";
 
-
-type option = {
-    model:string,
-    color:string,
-    id:number
-    speed:number
-}
+export type option = {
+    model: string;
+    color: string;
+    id: number;
+    speed: number;
+};
 
 export default class Option extends Component {
     model;
     color;
     id;
-    carSelect:boolean;
+    carSelect: boolean;
     speed;
-    constructor(car:option) {
+    run;
+    constructor(car: option) {
         super({ tag: "li", className: "option" });
-        this.model =car.model
-        this.color =car.color
-        this.id =car.id
-        this.speed =car.speed
-        this.carSelect =false;
-        console.log(car);
+        this.model = car.model;
+        this.color = car.color;
+        this.id = car.id;
+        this.speed = car.speed;
+        this.carSelect = false;
+        this.run = false;
         const btnsControl = [
             {
                 START: () => {
-                    const iconCar = this.getChild()[1].getChild()[0].getNode()();
-                    const widthRoad =this.getNode()().clientWidth;
-                   moveCar(iconCar,widthRoad,this.speed);
+                    moveCar(this);
                 },
                 RESTART: () => {
-                    const iconCar = this.getChild()[1].getChild()[0].getNode()();
-                    iconCar.style.left =0
+                    const iconCar = this.getChild()[1]
+                        .getChild()[0]
+                        .getNode()();
+                    iconCar.style.left = 0;
                 },
             },
             {
-                SELECT: () => this.carSelect =true,
-                REMOVE: ()=>this.destroy()
+                SELECT: () => (this.carSelect = true),
+                REMOVE: () => this.destroy(),
             },
         ];
-        this.appendChildren([this.getRemoteControl(btnsControl[1]),this.getRoad(this.color), this.getRemoteControl(btnsControl[0])]);
-        const carName =  new Component({tag:'h2',className:'car-name'})
-        carName.setText(this.model.toLocaleUpperCase())
-        this.getChild()[0].append(carName)
-        carName.getNode()().style.color = this.color
+        this.appendChildren([
+            this.getRemoteControl(btnsControl[1]),
+            this.getRoad(this.color),
+            this.getRemoteControl(btnsControl[0]),
+        ]);
+        const carName = new Component({ tag: "h2", className: "car-name" });
+        carName.setText(this.model.toLocaleUpperCase());
+        this.getChild()[0].append(carName);
+        carName.getNode()().style.color = this.color;
     }
-    setColor(color:string){
-        const svgCar = this.getChild()[1].getChild()[0].getNode()()
+    setColor(color: string) {
+        const svgCar = this.getChild()[1].getChild()[0].getNode()();
         svgCar.style.fill = color; // Новый цвет
     }
 
-    getRoad(color: string = '#000') {
+    getRoad(color: string = "#000") {
         const road = new Component({
             className: "road",
         });
@@ -82,12 +86,12 @@ export default class Option extends Component {
     }
 
     getRemoteControl(options) {
-        const  arrayBtn = Object.keys(options)
+        const arrayBtn = Object.keys(options);
         const btnsContainer = new Component({
             className: "btns-container",
         });
-        const btnStart = new Button(arrayBtn[0],options[arrayBtn[0]]);
-        const btnEnd = new Button(arrayBtn[1],options[arrayBtn[1]]);
+        const btnStart = new Button(arrayBtn[0], options[arrayBtn[0]]);
+        const btnEnd = new Button(arrayBtn[1], options[arrayBtn[1]]);
         btnsContainer.appendChildren([btnStart, btnEnd]);
         return btnsContainer;
     }

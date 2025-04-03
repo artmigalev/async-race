@@ -1,7 +1,7 @@
 import { Component } from "@/component/component";
 const page = {
     tag: "div",
-    className: "winner-page",
+    className: "winners-page",
 };
 export default class Winner extends Component {
     constructor() {

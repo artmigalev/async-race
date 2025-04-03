@@ -1,4 +1,7 @@
-type Nodes = { [value: string]: string };
+export type Nodes = { [value: string]: string };
+
+
+
 export class Component {
     private node: null | HTMLElement = null;
     private childNodes: Array<Component> = [];
