@@ -49,6 +49,7 @@ export default class Garage extends Component {
                 carCreated(this.containerOptions, car);
             }
         });
+        btnCreatedCar.toggleClass("btns-menu");
         const btnUpdateCar = new Button("Update", () => {
             const updateCarParams = {
                 getChild: () => [
@@ -66,13 +67,20 @@ export default class Garage extends Component {
             };
             UpdateCar(updateCarParams, this.containerOptions);
         });
+        btnUpdateCar.toggleClass("btns-menu");
         const garage = new Button("Garage", () => console.log("hi"));
+        garage.toggleClass("btns-menu");
+        garage.toggleClass("btns-pages");
+
         if (this instanceof Garage) {
             garage.setAttributes("disabled", "");
+            garage.toggleClass("active");
         }
         const winners = new Button("Winners", () => {
             parent.getView(new Winner());
         });
+        winners.toggleClass("btns-menu");
+        winners.toggleClass("btns-pages");
         const header = new Component(
             {
                 className: "header-menu",
@@ -122,10 +130,13 @@ export default class Garage extends Component {
     }
     getBtnsContainer(garage: Component) {
         const btnAdd = new Button("Race", () => runAllCars(garage));
+        btnAdd.toggleClass("btns-menu");
         const btnReset = new Button("Reset", () => restartAllCars(garage));
+        btnReset.toggleClass("btns-menu");
         const btnGenerate = new Button("Generate Cars", () => {
             generatedCars(garage);
         });
+        btnGenerate.toggleClass("btns-menu");
         const btnsContainer = new Component(
             {
                 className: "btns-container",

@@ -98,7 +98,9 @@ export default class Option extends Component {
             className: "btns-container",
         });
         const btnStart: Button = new Button(arrayBtn[0], options[arrayBtn[0]]);
+        btnStart.toggleClass("btns-menu");
         const btnEnd: Button = new Button(arrayBtn[1], options[arrayBtn[1]]);
+        btnEnd.toggleClass("btns-menu");
         btnsContainer.appendChildren([btnStart, btnEnd]);
         return btnsContainer;
     }
