@@ -5,7 +5,13 @@ import Input from "@/utils/input/input";
 import App from "@/app/app";
 import Winner from "../winners/winners";
 import { carCreated } from "@/api/api";
-import { generatedCars, restartAllCars, runAllCars, setSpeed, UpdateCar } from "@/functions";
+import {
+    generatedCars,
+    restartAllCars,
+    runAllCars,
+    setSpeed,
+    UpdateCar,
+} from "@/functions";
 
 export default class Garage extends Component {
     menu;
@@ -19,7 +25,6 @@ export default class Garage extends Component {
         this.menu = this.getMenu();
         this.countCar = this.setCount();
 
-
         this.appendChildren([this.menu, this.countCar, this.containerOptions]);
     }
     getMenu() {
@@ -29,9 +34,6 @@ export default class Garage extends Component {
         const inputCreate = new Input();
         const inputUpdate = new Input();
         const btnCreatedCar = new Button("Create", () => {
-            const popup=this.parent.popup.getNode()() as HTMLDialogElement
-            console.log(popup);
-            popup.showModal()
             const inputName = inputCreate.getNode()() as HTMLInputElement;
             const inputColor = createdCar
                 .getChild()[1]
@@ -47,9 +49,23 @@ export default class Garage extends Component {
                 carCreated(this.containerOptions, car);
             }
         });
-        const btnUpdateCar = new Button("Update", () =>
-            UpdateCar(updateCar, this.containerOptions),
-        );
+        const btnUpdateCar = new Button("Update", () => {
+            const updateCarParams = {
+                getChild: () => [
+                    {
+                        getNode: () => () =>
+                            inputUpdate.getNode()() as HTMLInputElement,
+                    },
+                    {
+                        getNode: () => () =>
+                            new Input()
+                                .getColorInput()
+                                .getNode()() as HTMLInputElement,
+                    },
+                ],
+            };
+            UpdateCar(updateCarParams, this.containerOptions);
+        });
         const garage = new Button("Garage", () => console.log("hi"));
         if (this instanceof Garage) {
             garage.setAttributes("disabled", "");
@@ -94,7 +110,7 @@ export default class Garage extends Component {
         counterComponent.setText(`${counterText} ${num}`);
         return counterComponent;
     }
-    getOptionContainer() {
+    getOptionContainer(): Component {
         const container = new Component({
             tag: "ul",
             className: "list-options",
@@ -104,13 +120,12 @@ export default class Garage extends Component {
         this.countCar = this.setCount(length);
         return container;
     }
-    getBtnsContainer(garage:Component) {
-
+    getBtnsContainer(garage: Component) {
         const btnAdd = new Button("Race", () => runAllCars(garage));
-        const btnReset = new Button("Reset" ,() => restartAllCars(garage));
-        const btnGenerate = new Button("Generate Cars", () =>
-            generatedCars(garage),
-        );
+        const btnReset = new Button("Reset", () => restartAllCars(garage));
+        const btnGenerate = new Button("Generate Cars", () => {
+            generatedCars(garage);
+        });
         const btnsContainer = new Component(
             {
                 className: "btns-container",

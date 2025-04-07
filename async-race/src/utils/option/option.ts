@@ -18,6 +18,7 @@ export default class Option extends Component {
     carSelect: boolean;
     speed;
     run;
+
     constructor(car: option) {
         super({ tag: "li", className: "option" });
         this.model = car.model;
@@ -35,12 +36,18 @@ export default class Option extends Component {
                     const iconCar = this.getChild()[1]
                         .getChild()[0]
                         .getNode()();
-                    iconCar.style.left = 0;
+                    iconCar.style.left = "0";
                 },
+                SELECT: () => {}, // Provide a default no-op function
+                REMOVE: () => {}, // Provide a default no-op function
             },
             {
-                SELECT: () => (this.carSelect = true),
+                SELECT: () => {
+                    this.carSelect = true;
+                },
                 REMOVE: () => this.destroy(),
+                START: () => {}, // Provide a default no-op function
+                RESTART: () => {}, // Provide a default no-op function
             },
         ];
         this.appendChildren([
@@ -85,13 +92,13 @@ export default class Option extends Component {
         return road;
     }
 
-    getRemoteControl(options) {
-        const arrayBtn = Object.keys(options);
-        const btnsContainer = new Component({
+    getRemoteControl(options: Record<string, () => void>): Component {
+        const arrayBtn: string[] = Object.keys(options);
+        const btnsContainer: Component = new Component({
             className: "btns-container",
         });
-        const btnStart = new Button(arrayBtn[0], options[arrayBtn[0]]);
-        const btnEnd = new Button(arrayBtn[1], options[arrayBtn[1]]);
+        const btnStart: Button = new Button(arrayBtn[0], options[arrayBtn[0]]);
+        const btnEnd: Button = new Button(arrayBtn[1], options[arrayBtn[1]]);
         btnsContainer.appendChildren([btnStart, btnEnd]);
         return btnsContainer;
     }

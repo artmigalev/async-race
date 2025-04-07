@@ -1,21 +1,38 @@
-import { carCreated } from "./api/api";
 import { Component } from "./component/component";
-import Garage from "./pages/garage/garage";
 import Option from "./utils/option/option";
+import Popup from "./utils/popup/dialog";
+interface UpdateCarParams {
+    getChild(): Array<{ getNode(): () => HTMLInputElement }>;
+}
 
-export function UpdateCar(params, garage: Component) {
-    const arrCars = garage.getChild();
+interface GarageComponent extends Component {
+    getChild(): Option[];
+}
+
+export function UpdateCar(
+    params: UpdateCarParams,
+    garage: GarageComponent | Component,
+): void {
+    const arrCars = garage.getChild() as Option[];
     const car = arrCars.find((car) => car.carSelect === true);
+    if (!car) return;
+
     const name = params.getChild()[0].getNode()() as HTMLInputElement;
     const color = params.getChild()[1].getNode()() as HTMLInputElement;
+
     if (name.value !== "") {
         const titleCar = car.getChild()[0].getChild()[2];
         titleCar.getNode()().textContent = name.value;
     }
-    console.log(car);
-    const svgCar = car.getChild()[1].getChild()[0].getNode()();
 
-    svgCar.querySelector("path").style.fill = color.value;
+    console.log(car);
+
+    const svgCar = car.getChild()[1].getChild()[0].getNode()();
+    const pathElement = svgCar.querySelector("path") as SVGPathElement;
+
+    if (pathElement) {
+        pathElement.style.fill = color.value;
+    }
 }
 
 export function moveCar(option: Option) {
@@ -24,17 +41,33 @@ export function moveCar(option: Option) {
     option.run = true;
     const speed = option.speed;
 
-    let start;
+    let start: number | undefined;
     let stop;
     let progress: number;
 
-    function animate(timeStamp) {
+    function animate(timeStamp: number | undefined) {
         if (!start || progress > finish) start = timeStamp;
-        progress = (timeStamp - start) / speed;
+        if (timeStamp !== undefined && start !== undefined) {
+            progress = (timeStamp - start) / speed;
+        }
         car.style.left = progress + "%";
         stop = window.requestAnimationFrame(animate);
         if (progress >= 85) {
+            const winner = {
+                model: option.model,
+                color: option.color,
+                id: option.id,
+                speed: option.speed,
+            };
             cancelAnimationFrame(stop);
+
+            if (!document.body.querySelector("dialog")) {
+                const popup = new Popup(
+                    winner,
+                ).getNode()() as HTMLDialogElement;
+                document.body.appendChild(popup);
+                popup.showModal();
+            }
         }
     }
     requestAnimationFrame(animate);
@@ -49,7 +82,7 @@ export function setSpeed() {
 
 export function generatedCars(garage: Component) {
     let count = 0;
-    const arrCars = Array.from({ length: 100 }, (v, i) => {
+    const arrCars = Array.from({ length: 100 }, () => {
         const option = {
             model: `a${count++}`,
             color: `#F00${count++}`,
@@ -59,7 +92,7 @@ export function generatedCars(garage: Component) {
 
         return new Option(option);
     });
-    
+
     garage.appendChildren(arrCars);
 }
 export function runAllCars(garage: Component) {
@@ -74,7 +107,7 @@ export function restartAllCars(garage: Component) {
         cars.forEach((car) => {
             const icon = car.getChild()[1].getChild()[0].getNode()();
 
-            icon.style.left = 0;
+            icon.style.left = "0";
         });
     }
 }
