@@ -1,3 +1,397 @@
-var A=Object.defineProperty;var O=(o,t,e)=>t in o?A(o,t,{enumerable:!0,configurable:!0,writable:!0,value:e}):o[t]=e;var a=(o,t,e)=>O(o,typeof t!="symbol"?t+"":t,e);(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const n of document.querySelectorAll('link[rel="modulepreload"]'))s(n);new MutationObserver(n=>{for(const r of n)if(r.type==="childList")for(const l of r.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&s(l)}).observe(document,{childList:!0,subtree:!0});function e(n){const r={};return n.integrity&&(r.integrity=n.integrity),n.referrerPolicy&&(r.referrerPolicy=n.referrerPolicy),n.crossOrigin==="use-credentials"?r.credentials="include":n.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function s(n){if(n.ep)return;n.ep=!0;const r=e(n);fetch(n.href,r)}})();class i{constructor({tag:t="div",className:e=""},...s){a(this,"node",null);a(this,"childNodes",[]);const n=document.createElement(t);n.className=e,this.node=n,s&&this.appendChildren(s)}getNode(){return()=>{if(this.node===null)throw new Error("Node is null");return this.node}}append(t){if(this.node===null)throw new Error("Node is null");this.childNodes.push(t),this.node.append(t.getNode()())}appendChildren(t){t.forEach(e=>{this.append(e)})}getChild(){return this.childNodes}setText(t){if(this.node===null)throw new Error("Node is null");this.node.textContent=t}toggleClass(t){if(this.node===null)throw new Error("Node is null");this.node.classList.toggle(t)}setAttributes(t,e){if(this.node===null)throw new Error("Node is null");this.node.setAttribute(t,e)}destroy(){if(this.node===null)throw new Error("Node is null");this.node.remove()}removeChildren(){this.childNodes.forEach(t=>{t.destroy()}),this.childNodes.length=0}remove(){this.removeChildren()}addListener(t,e,s=!1){if(this.node===null)throw new Error("Node is null");this.node.addEventListener(t,e,s)}removeListener(t,e,s=!1){if(this.node===null)throw new Error("Node is null");this.node.removeEventListener(t,e,s)}}const R={tag:"button",className:"button"};class d extends i{constructor(t,e){super(R),this.setText(t),this.addListener("click",e)}}const S={tag:"input",className:"input"};class g extends i{constructor(){super(S)}getColorInput(){const t=new i({tag:"input",className:"color-input"});return t.setAttributes("type","color"),t.setAttributes("value","#0000"),t}}const T={tag:"div",className:"winners-page"};class L extends i{constructor(){super(T)}}const M=""+new URL("flag-D6dfyS2l.svg",import.meta.url).href,z={tag:"dialog",className:"dialog"};class P extends i{constructor(e){super(z);a(this,"popup");this.popup=this.getView(e)}getView(e){const s=new i({className:"popup-body"}),n=new i({tag:"h2",className:"popup-text"});n.setText(`Winner !!!!!!!! 
- ${e.model} ${e.speed}`),s.append(n),this.append(s)}}function I(o,t){const s=t.getChild().find(c=>c.carSelect===!0);if(!s)return;const n=o.getChild()[0].getNode()(),r=o.getChild()[1].getNode()();if(n.value!==""){const c=s.getChild()[0].getChild()[2];c.getNode()().textContent=n.value}console.log(s);const u=s.getChild()[1].getChild()[0].getNode()().querySelector("path");u&&(u.style.fill=r.value)}function N(o){const t=o.getChild()[1].getChild()[0].getNode()(),e=o.getNode()().clientWidth;o.run=!0;const s=o.speed;let n,r,l;function u(c){if((!n||l>e)&&(n=c),c!==void 0&&n!==void 0&&(l=(c-n)/s),t.style.left=l+"%",r=window.requestAnimationFrame(u),l>=85){const h={model:o.model,color:o.color,id:o.id,speed:o.speed};if(cancelAnimationFrame(r),!document.body.querySelector("dialog")){const p=new P(h).getNode()();document.body.appendChild(p),p.showModal()}}}requestAnimationFrame(u)}function C(){const o=Number((Math.random()*100).toFixed(2));return o<10?C():o}function q(o){let t=0;const e=Array.from({length:100},()=>{const s={model:`a${t++}`,color:`#F00${t++}`,id:t++,speed:C()};return new b(s)});o.appendChildren(e)}function B(o){o.getChild().forEach(e=>N(e))}function F(o){let t=o.getChild();t.length===0?alert("Please add CAR"):t.forEach(e=>{const s=e.getChild()[1].getChild()[0].getNode()();s.style.left="0"})}class b extends i{constructor(e){super({tag:"li",className:"option"});a(this,"model");a(this,"color");a(this,"id");a(this,"carSelect");a(this,"speed");a(this,"run");this.model=e.model,this.color=e.color,this.id=e.id,this.speed=e.speed,this.carSelect=!1,this.run=!1;const s=[{START:()=>{N(this)},RESTART:()=>{const r=this.getChild()[1].getChild()[0].getNode()();r.style.left="0"},SELECT:()=>{},REMOVE:()=>{}},{SELECT:()=>{this.carSelect=!0},REMOVE:()=>this.destroy(),START:()=>{},RESTART:()=>{}}];this.appendChildren([this.getRemoteControl(s[1]),this.getRoad(this.color),this.getRemoteControl(s[0])]);const n=new i({tag:"h2",className:"car-name"});n.setText(this.model.toLocaleUpperCase()),this.getChild()[0].append(n),n.getNode()().style.color=this.color}setColor(e){const s=this.getChild()[1].getChild()[0].getNode()();s.style.fill=e}getRoad(e="#000"){const s=new i({className:"road"}),n=new i({tag:"div",className:"car-icon"});n.getNode()().innerHTML='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve"><g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"><circle cx="70.735" cy="56.775" r="1.955" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) "/><circle cx="19.765" cy="56.775" r="1.955" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) "/><path d="M 75.479 36.045 l -7.987 -1.22 l -2.35 -2.574 c -5.599 -6.132 -13.571 -9.649 -21.874 -9.649 h -6.245 c -1.357 0 -2.696 0.107 -4.016 0.296 c -0.022 0.004 -0.044 0.006 -0.066 0.01 c -7.799 1.133 -14.802 5.468 -19.285 12.106 C 5.706 37.913 0 45.358 0 52.952 c 0 3.254 2.647 5.9 5.9 5.9 h 3.451 c 0.969 4.866 5.269 8.545 10.416 8.545 s 9.447 -3.679 10.416 -8.545 h 30.139 c 0.969 4.866 5.27 8.545 10.416 8.545 s 9.446 -3.679 10.415 -8.545 H 84.1 c 3.254 0 5.9 -2.646 5.9 -5.9 C 90 44.441 83.894 37.331 75.479 36.045 z M 43.269 26.602 c 7.065 0 13.848 2.949 18.676 8.094 H 39.464 l -3.267 -8.068 c 0.275 -0.009 0.55 -0.026 0.826 -0.026 H 43.269 z M 32.08 27.118 l 3.068 7.578 H 18.972 C 22.429 30.813 27.018 28.169 32.08 27.118 z M 19.767 63.397 c -3.652 0 -6.623 -2.971 -6.623 -6.622 c 0 -3.652 2.971 -6.623 6.623 -6.623 s 6.623 2.971 6.623 6.623 C 26.39 60.427 23.419 63.397 19.767 63.397 z M 70.738 63.397 c -3.652 0 -6.623 -2.971 -6.623 -6.622 c 0 -3.652 2.971 -6.623 6.623 -6.623 c 3.651 0 6.622 2.971 6.622 6.623 C 77.36 60.427 74.39 63.397 70.738 63.397 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/></g></svg>';const r=n.getNode()().querySelector("path");e&&r&&(r.style.fill=e);const l=new i({tag:"img",className:"flag-icon"});return l.setAttributes("src",M),s.appendChildren([n,l]),s}getRemoteControl(e){const s=Object.keys(e),n=new i({className:"btns-container"}),r=new d(s[0],e[s[0]]);r.toggleClass("btns-menu");const l=new d(s[1],e[s[1]]);return l.toggleClass("btns-menu"),n.appendChildren([r,l]),n}}function U(o,t){o.append(new b(t))}class f extends i{constructor(e){super({className:"garage"});a(this,"menu");a(this,"parent");a(this,"countCar");a(this,"containerOptions");this.parent=e,this.containerOptions=this.getOptionContainer(),this.menu=this.getMenu(),this.countCar=this.setCount(),this.appendChildren([this.menu,this.countCar,this.containerOptions])}getMenu(){const e=this.parent,s=new i({className:"menu"}),n=new g,r=new g,l=new d("Create",()=>{const m=n.getNode()(),E=w.getChild()[1].getNode()();if(m.value!==""){const k={model:m.value,color:E.value,id:this.containerOptions.getChild().length+1,speed:C()};U(this.containerOptions,k)}});l.toggleClass("btns-menu");const u=new d("Update",()=>{I({getChild:()=>[{getNode:()=>()=>r.getNode()()},{getNode:()=>()=>new g().getColorInput().getNode()()}]},this.containerOptions)});u.toggleClass("btns-menu");const c=new d("Garage",()=>console.log("hi"));c.toggleClass("btns-menu"),c.toggleClass("btns-pages"),this instanceof f&&(c.setAttributes("disabled",""),c.toggleClass("active"));const h=new d("Winners",()=>{e.getView(new L)});h.toggleClass("btns-menu"),h.toggleClass("btns-pages");const p=new i({className:"header-menu"},c,h),w=new i({className:"created-car container"},n,new g().getColorInput(),l),y=new i({className:"update-car container"},r,new g().getColorInput(),u),v=new i({className:"footer-menu"},w,y),x=this.getBtnsContainer(this.containerOptions);return s.appendChildren([p,v,x]),s}setCount(e=1){const s="Cars in garage:",n=new i({tag:"h1",className:"counter-car"});return n.setText(`${s} ${e}`),n}getOptionContainer(){const e=new i({tag:"ul",className:"list-options"}),s=e.getChild().length;return this.countCar=this.setCount(s),e}getBtnsContainer(e){const s=new d("Race",()=>B(e));s.toggleClass("btns-menu");const n=new d("Reset",()=>F(e));n.toggleClass("btns-menu");const r=new d("Generate Cars",()=>{q(e)});return r.toggleClass("btns-menu"),new i({className:"btns-container"},s,n,r)}}class V extends i{constructor(){super({tag:"div",className:"app"});const t=new f(this);this.append(t),document.body.append(this.getNode()())}getView(t){this.removeChildren(),this.append(t)}}new V;
+var A = Object.defineProperty;
+var O = (o, t, e) =>
+    t in o
+        ? A(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e })
+        : (o[t] = e);
+var a = (o, t, e) => O(o, typeof t != "symbol" ? t + "" : t, e);
+(function () {
+    const t = document.createElement("link").relList;
+    if (t && t.supports && t.supports("modulepreload")) return;
+    for (const n of document.querySelectorAll('link[rel="modulepreload"]'))
+        s(n);
+    new MutationObserver((n) => {
+        for (const r of n)
+            if (r.type === "childList")
+                for (const l of r.addedNodes)
+                    l.tagName === "LINK" && l.rel === "modulepreload" && s(l);
+    }).observe(document, { childList: !0, subtree: !0 });
+    function e(n) {
+        const r = {};
+        return (
+            n.integrity && (r.integrity = n.integrity),
+            n.referrerPolicy && (r.referrerPolicy = n.referrerPolicy),
+            n.crossOrigin === "use-credentials"
+                ? (r.credentials = "include")
+                : n.crossOrigin === "anonymous"
+                  ? (r.credentials = "omit")
+                  : (r.credentials = "same-origin"),
+            r
+        );
+    }
+    function s(n) {
+        if (n.ep) return;
+        n.ep = !0;
+        const r = e(n);
+        fetch(n.href, r);
+    }
+})();
+class i {
+    constructor({ tag: t = "div", className: e = "" }, ...s) {
+        a(this, "node", null);
+        a(this, "childNodes", []);
+        const n = document.createElement(t);
+        (n.className = e), (this.node = n), s && this.appendChildren(s);
+    }
+    getNode() {
+        return () => {
+            if (this.node === null) throw new Error("Node is null");
+            return this.node;
+        };
+    }
+    append(t) {
+        if (this.node === null) throw new Error("Node is null");
+        this.childNodes.push(t), this.node.append(t.getNode()());
+    }
+    appendChildren(t) {
+        t.forEach((e) => {
+            this.append(e);
+        });
+    }
+    getChild() {
+        return this.childNodes;
+    }
+    setText(t) {
+        if (this.node === null) throw new Error("Node is null");
+        this.node.textContent = t;
+    }
+    toggleClass(t) {
+        if (this.node === null) throw new Error("Node is null");
+        this.node.classList.toggle(t);
+    }
+    setAttributes(t, e) {
+        if (this.node === null) throw new Error("Node is null");
+        this.node.setAttribute(t, e);
+    }
+    destroy() {
+        if (this.node === null) throw new Error("Node is null");
+        this.node.remove();
+    }
+    removeChildren() {
+        this.childNodes.forEach((t) => {
+            t.destroy();
+        }),
+            (this.childNodes.length = 0);
+    }
+    remove() {
+        this.removeChildren();
+    }
+    addListener(t, e, s = !1) {
+        if (this.node === null) throw new Error("Node is null");
+        this.node.addEventListener(t, e, s);
+    }
+    removeListener(t, e, s = !1) {
+        if (this.node === null) throw new Error("Node is null");
+        this.node.removeEventListener(t, e, s);
+    }
+}
+const R = { tag: "button", className: "button" };
+class d extends i {
+    constructor(t, e) {
+        super(R), this.setText(t), this.addListener("click", e);
+    }
+}
+const S = { tag: "input", className: "input" };
+class g extends i {
+    constructor() {
+        super(S);
+    }
+    getColorInput() {
+        const t = new i({ tag: "input", className: "color-input" });
+        return (
+            t.setAttributes("type", "color"),
+            t.setAttributes("value", "#0000"),
+            t
+        );
+    }
+}
+const T = { tag: "div", className: "winners-page" };
+class L extends i {
+    constructor() {
+        super(T);
+    }
+}
+const M = "" + new URL("flag-D6dfyS2l.svg", import.meta.url).href,
+    z = { tag: "dialog", className: "dialog" };
+class P extends i {
+    constructor(e) {
+        super(z);
+        a(this, "popup");
+        this.popup = this.getView(e);
+    }
+    getView(e) {
+        const s = new i({ className: "popup-body" }),
+            n = new i({ tag: "h2", className: "popup-text" });
+        n.setText(`Winner !!!!!!!! 
+ ${e.model} ${e.speed}`),
+            s.append(n),
+            this.append(s);
+    }
+}
+function I(o, t) {
+    const s = t.getChild().find((c) => c.carSelect === !0);
+    if (!s) return;
+    const n = o.getChild()[0].getNode()(),
+        r = o.getChild()[1].getNode()();
+    if (n.value !== "") {
+        const c = s.getChild()[0].getChild()[2];
+        c.getNode()().textContent = n.value;
+    }
+    console.log(s);
+    const u = s.getChild()[1].getChild()[0].getNode()().querySelector("path");
+    u && (u.style.fill = r.value);
+}
+function N(o) {
+    const t = o.getChild()[1].getChild()[0].getNode()(),
+        e = o.getNode()().clientWidth;
+    o.run = !0;
+    const s = o.speed;
+    let n, r, l;
+    function u(c) {
+        if (
+            ((!n || l > e) && (n = c),
+            c !== void 0 && n !== void 0 && (l = (c - n) / s),
+            (t.style.left = l + "%"),
+            (r = window.requestAnimationFrame(u)),
+            l >= 85)
+        ) {
+            const h = {
+                model: o.model,
+                color: o.color,
+                id: o.id,
+                speed: o.speed,
+            };
+            if (
+                (cancelAnimationFrame(r),
+                !document.body.querySelector("dialog"))
+            ) {
+                const p = new P(h).getNode()();
+                document.body.appendChild(p), p.showModal();
+            }
+        }
+    }
+    requestAnimationFrame(u);
+}
+function C() {
+    const o = Number((Math.random() * 100).toFixed(2));
+    return o < 10 ? C() : o;
+}
+function q(o) {
+    let t = 0;
+    const e = Array.from({ length: 100 }, () => {
+        const s = {
+            model: `a${t++}`,
+            color: `#F00${t++}`,
+            id: t++,
+            speed: C(),
+        };
+        return new b(s);
+    });
+    o.appendChildren(e);
+}
+function B(o) {
+    o.getChild().forEach((e) => N(e));
+}
+function F(o) {
+    let t = o.getChild();
+    t.length === 0
+        ? alert("Please add CAR")
+        : t.forEach((e) => {
+              const s = e.getChild()[1].getChild()[0].getNode()();
+              s.style.left = "0";
+          });
+}
+class b extends i {
+    constructor(e) {
+        super({ tag: "li", className: "option" });
+        a(this, "model");
+        a(this, "color");
+        a(this, "id");
+        a(this, "carSelect");
+        a(this, "speed");
+        a(this, "run");
+        (this.model = e.model),
+            (this.color = e.color),
+            (this.id = e.id),
+            (this.speed = e.speed),
+            (this.carSelect = !1),
+            (this.run = !1);
+        const s = [
+            {
+                START: () => {
+                    N(this);
+                },
+                RESTART: () => {
+                    const r = this.getChild()[1].getChild()[0].getNode()();
+                    r.style.left = "0";
+                },
+                SELECT: () => {},
+                REMOVE: () => {},
+            },
+            {
+                SELECT: () => {
+                    this.carSelect = !0;
+                },
+                REMOVE: () => this.destroy(),
+                START: () => {},
+                RESTART: () => {},
+            },
+        ];
+        this.appendChildren([
+            this.getRemoteControl(s[1]),
+            this.getRoad(this.color),
+            this.getRemoteControl(s[0]),
+        ]);
+        const n = new i({ tag: "h2", className: "car-name" });
+        n.setText(this.model.toLocaleUpperCase()),
+            this.getChild()[0].append(n),
+            (n.getNode()().style.color = this.color);
+    }
+    setColor(e) {
+        const s = this.getChild()[1].getChild()[0].getNode()();
+        s.style.fill = e;
+    }
+    getRoad(e = "#000") {
+        const s = new i({ className: "road" }),
+            n = new i({ tag: "div", className: "car-icon" });
+        n.getNode()().innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve"><g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"><circle cx="70.735" cy="56.775" r="1.955" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) "/><circle cx="19.765" cy="56.775" r="1.955" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) "/><path d="M 75.479 36.045 l -7.987 -1.22 l -2.35 -2.574 c -5.599 -6.132 -13.571 -9.649 -21.874 -9.649 h -6.245 c -1.357 0 -2.696 0.107 -4.016 0.296 c -0.022 0.004 -0.044 0.006 -0.066 0.01 c -7.799 1.133 -14.802 5.468 -19.285 12.106 C 5.706 37.913 0 45.358 0 52.952 c 0 3.254 2.647 5.9 5.9 5.9 h 3.451 c 0.969 4.866 5.269 8.545 10.416 8.545 s 9.447 -3.679 10.416 -8.545 h 30.139 c 0.969 4.866 5.27 8.545 10.416 8.545 s 9.446 -3.679 10.415 -8.545 H 84.1 c 3.254 0 5.9 -2.646 5.9 -5.9 C 90 44.441 83.894 37.331 75.479 36.045 z M 43.269 26.602 c 7.065 0 13.848 2.949 18.676 8.094 H 39.464 l -3.267 -8.068 c 0.275 -0.009 0.55 -0.026 0.826 -0.026 H 43.269 z M 32.08 27.118 l 3.068 7.578 H 18.972 C 22.429 30.813 27.018 28.169 32.08 27.118 z M 19.767 63.397 c -3.652 0 -6.623 -2.971 -6.623 -6.622 c 0 -3.652 2.971 -6.623 6.623 -6.623 s 6.623 2.971 6.623 6.623 C 26.39 60.427 23.419 63.397 19.767 63.397 z M 70.738 63.397 c -3.652 0 -6.623 -2.971 -6.623 -6.622 c 0 -3.652 2.971 -6.623 6.623 -6.623 c 3.651 0 6.622 2.971 6.622 6.623 C 77.36 60.427 74.39 63.397 70.738 63.397 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/></g></svg>';
+        const r = n.getNode()().querySelector("path");
+        e && r && (r.style.fill = e);
+        const l = new i({ tag: "img", className: "flag-icon" });
+        return l.setAttributes("src", M), s.appendChildren([n, l]), s;
+    }
+    getRemoteControl(e) {
+        const s = Object.keys(e),
+            n = new i({ className: "btns-container" }),
+            r = new d(s[0], e[s[0]]);
+        r.toggleClass("btns-menu");
+        const l = new d(s[1], e[s[1]]);
+        return l.toggleClass("btns-menu"), n.appendChildren([r, l]), n;
+    }
+}
+function U(o, t) {
+    o.append(new b(t));
+}
+class f extends i {
+    constructor(e) {
+        super({ className: "garage" });
+        a(this, "menu");
+        a(this, "parent");
+        a(this, "countCar");
+        a(this, "containerOptions");
+        (this.parent = e),
+            (this.containerOptions = this.getOptionContainer()),
+            (this.menu = this.getMenu()),
+            (this.countCar = this.setCount()),
+            this.appendChildren([
+                this.menu,
+                this.countCar,
+                this.containerOptions,
+            ]);
+    }
+    getMenu() {
+        const e = this.parent,
+            s = new i({ className: "menu" }),
+            n = new g(),
+            r = new g(),
+            l = new d("Create", () => {
+                const m = n.getNode()(),
+                    E = w.getChild()[1].getNode()();
+                if (m.value !== "") {
+                    const k = {
+                        model: m.value,
+                        color: E.value,
+                        id: this.containerOptions.getChild().length + 1,
+                        speed: C(),
+                    };
+                    U(this.containerOptions, k);
+                }
+            });
+        l.toggleClass("btns-menu");
+        const u = new d("Update", () => {
+            I(
+                {
+                    getChild: () => [
+                        { getNode: () => () => r.getNode()() },
+                        {
+                            getNode: () => () =>
+                                new g().getColorInput().getNode()(),
+                        },
+                    ],
+                },
+                this.containerOptions,
+            );
+        });
+        u.toggleClass("btns-menu");
+        const c = new d("Garage", () => console.log("hi"));
+        c.toggleClass("btns-menu"),
+            c.toggleClass("btns-pages"),
+            this instanceof f &&
+                (c.setAttributes("disabled", ""), c.toggleClass("active"));
+        const h = new d("Winners", () => {
+            e.getView(new L());
+        });
+        h.toggleClass("btns-menu"), h.toggleClass("btns-pages");
+        const p = new i({ className: "header-menu" }, c, h),
+            w = new i(
+                { className: "created-car container" },
+                n,
+                new g().getColorInput(),
+                l,
+            ),
+            y = new i(
+                { className: "update-car container" },
+                r,
+                new g().getColorInput(),
+                u,
+            ),
+            v = new i({ className: "footer-menu" }, w, y),
+            x = this.getBtnsContainer(this.containerOptions);
+        return s.appendChildren([p, v, x]), s;
+    }
+    setCount(e = 1) {
+        const s = "Cars in garage:",
+            n = new i({ tag: "h1", className: "counter-car" });
+        return n.setText(`${s} ${e}`), n;
+    }
+    getOptionContainer() {
+        const e = new i({ tag: "ul", className: "list-options" }),
+            s = e.getChild().length;
+        return (this.countCar = this.setCount(s)), e;
+    }
+    getBtnsContainer(e) {
+        const s = new d("Race", () => B(e));
+        s.toggleClass("btns-menu");
+        const n = new d("Reset", () => F(e));
+        n.toggleClass("btns-menu");
+        const r = new d("Generate Cars", () => {
+            q(e);
+        });
+        return (
+            r.toggleClass("btns-menu"),
+            new i({ className: "btns-container" }, s, n, r)
+        );
+    }
+}
+class V extends i {
+    constructor() {
+        super({ tag: "div", className: "app" });
+        const t = new f(this);
+        this.append(t), document.body.append(this.getNode()());
+    }
+    getView(t) {
+        this.removeChildren(), this.append(t);
+    }
+}
+new V();
 //# sourceMappingURL=index-P8RptRYT.js.map
