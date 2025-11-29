@@ -3,6 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
+    "homepage": "https://artmigalev.github.io/async-race/",
     "scripts": {
         "deploy": "npm run build && gh-pages -d public",
         "dev": "vite",
