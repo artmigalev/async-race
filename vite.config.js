@@ -4,7 +4,7 @@ import eslintPlugin from "vite-plugin-eslint";
 import svgr from "vite-plugin-svgr";
 export default defineConfig({
     root: "./",
-    base: "./",
+    base: "/async-race",
     mode: "development",
     server: {
         port: 3000,
